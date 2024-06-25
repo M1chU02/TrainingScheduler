@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#dashboard,
+#training-log,
+#planning,
+#weekly-view,
+#progress-tracking {
+  padding: 20px;
+}
+
+#training-log form {
+  display: flex;
+  flex-direction: column;
+}
+
+#training-log form label,
+#training-log form input,
+#training-log form select,
+#training-log form textarea {
+  margin-bottom: 10px;
+}
+
+/* Add more styles as needed */

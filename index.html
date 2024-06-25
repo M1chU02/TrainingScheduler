@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Training Scheduler</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="dashboard">
+      <h2>Current Week's Overview</h2>
+      <div id="summary-stats">
+        <!-- Summary statistics for each activity type -->
+      </div>
+    </div>
+
+    <div id="training-log">
+      <h2>Log Training Session</h2>
+      <form id="log-form">
+        <label for="activity-type">Activity Type:</label>
+        <select id="activity-type">
+          <option value="cycling">Cycling</option>
+          <option value="running">Running</option>
+          <option value="bodybuilding">Bodybuilding</option>
+        </select>
+        <label for="distance">Distance (km):</label>
+        <input type="number" id="distance" />
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration" />
+        <label for="intensity">Intensity:</label>
+        <select id="intensity">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <label for="notes">Notes:</label>
+        <textarea id="notes"></textarea>
+        <button type="button" id="add-session">Add Session</button>
+        <button type="reset">Clear</button>
+      </form>
+    </div>
+
+    <div id="planning">
+      <h2>Plan Your Training</h2>
+      <div id="calendar"></div>
+      <!-- Modal or form to add planned activities can be implemented here -->
+    </div>
+
+    <div id="weekly-view">
+      <h2>Weekly View</h2>
+      <div id="weekly-calendar"></div>
+      <div id="weekly-totals">
+        <!-- Weekly totals for each activity type -->
+      </div>
+    </div>
+
+    <div id="progress-tracking">
+      <h2>Progress Tracking</h2>
+      <canvas id="progress-chart"></canvas>
+    </div>
+
+    <div id="data-management">
+      <button id="export-data">Export Data</button>
+      <input type="file" id="import-data" />
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
