@@ -20,10 +20,41 @@ const deleteSessionFromLocalStorage = (index) => {
   localStorage.setItem("sessions", JSON.stringify(sessions));
 };
 
+const getCurrentWeek = () => {
+  const now = new Date();
+  const firstDayOfWeek = now.getDate() - now.getDay();
+  const lastDayOfWeek = firstDayOfWeek + 6;
+
+  const startOfWeek = new Date(now.setDate(firstDayOfWeek));
+  const endOfWeek = new Date(now.setDate(lastDayOfWeek));
+
+  return { startOfWeek, endOfWeek };
+};
+
 const updateDashboard = () => {
   const sessions = getSessionsFromLocalStorage();
-  // Calculate summary statistics for the current week
-  // Update the DOM elements with the calculated statistics
+  const { startOfWeek, endOfWeek } = getCurrentWeek();
+
+  const currentWeekSessions = sessions.filter((session) => {
+    const sessionDate = new Date(session.date);
+    return sessionDate >= startOfWeek && sessionDate <= endOfWeek;
+  });
+
+  let summaryHTML = "";
+  currentWeekSessions.forEach((session) => {
+    summaryHTML += `
+      <div class="summary-item">
+        <h3>${session.activityType}</h3>
+        <p>Distance: ${session.distance} km</p>
+        <p>Duration: ${session.duration} minutes</p>
+        <p>Intensity: ${session.intensity}</p>
+        <p>Notes: ${session.notes}</p>
+        <p>Date: ${new Date(session.date).toLocaleDateString()}</p>
+      </div>
+    `;
+  });
+
+  document.getElementById("summary-stats").innerHTML = summaryHTML;
 };
 
 document.addEventListener("DOMContentLoaded", updateDashboard);
@@ -46,19 +77,37 @@ document.getElementById("add-session").addEventListener("click", () => {
     };
     saveSessionToLocalStorage(session);
     updateDashboard();
-    // Update the UI accordingly
+    updateWeeklyView();
+    updateProgressTracking();
   } else {
     alert("Please enter valid distance and duration.");
   }
 });
 
-// Use FullCalendar.js or similar library to implement calendar view
-// Add functionality to add planned activities
-
 const updateWeeklyView = () => {
   const sessions = getSessionsFromLocalStorage();
-  // Calculate weekly totals for each activity type
-  // Populate the weekly calendar view with planned and completed sessions
+  const { startOfWeek, endOfWeek } = getCurrentWeek();
+
+  const currentWeekSessions = sessions.filter((session) => {
+    const sessionDate = new Date(session.date);
+    return sessionDate >= startOfWeek && sessionDate <= endOfWeek;
+  });
+
+  let weeklyCalendarHTML = "";
+  currentWeekSessions.forEach((session) => {
+    weeklyCalendarHTML += `
+      <div class="calendar-item">
+        <h3>${session.activityType}</h3>
+        <p>Distance: ${session.distance} km</p>
+        <p>Duration: ${session.duration} minutes</p>
+        <p>Intensity: ${session.intensity}</p>
+        <p>Notes: ${session.notes}</p>
+        <p>Date: ${new Date(session.date).toLocaleDateString()}</p>
+      </div>
+    `;
+  });
+
+  document.getElementById("weekly-calendar").innerHTML = weeklyCalendarHTML;
 };
 
 document.addEventListener("DOMContentLoaded", updateWeeklyView);
